@@ -1,0 +1,21 @@
+---
+- name: Enable kvm kernel module
+  modprobe:
+    name: kvm-intel
+    state: present
+
+- name: Add root to libvirt group
+  user:
+    name: root
+    groups: libvirt
+
+- name: Enable and start libvirt daemon
+  systemd:
+    name: libvirtd
+    state: started
+    enabled: true
+
+- name: Enable and start libvirtlog daemon
+  systemd:
+    name: virtlogd
+    state: started

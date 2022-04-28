@@ -1,0 +1,11 @@
+vcluster_head_os_img_url: "https://download.rockylinux.org/pub/rocky/8/isos/x86_64/Rocky-8.5-x86_64-boot.iso"
+
+# Directories
+vcluster_base_dir: "/root/virtual-clusters/{{ vcluster_tag }}"
+vcluster_os_img_dir: "{{ (vcluster_base_dir, 'os-images') | path_join }}"
+vcluster_pool_dir: "{{ (vcluster_base_dir, 'storage-pool') | path_join }}"
+
+# Computed
+vcluster_head_os_img: "{{ (vcluster_os_img_dir, vcluster_head_os_img_url | basename) | path_join}}"
+vcluster_head_name: "vcluster-{{ vcluster_tag }}-head"
+vcluster_node_prefix: "vcluster-{{ vcluster_tag }}-node"

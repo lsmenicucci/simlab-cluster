@@ -1,0 +1,9 @@
+---
+- hosts: cluster-emu
+  become: true
+  become_user: root 
+
+  tasks:
+    - include_tasks: "tasks/setup-packages-{{ os_family }}.yaml"
+    - include_tasks: "tasks/post-packages-setup.yaml"
+

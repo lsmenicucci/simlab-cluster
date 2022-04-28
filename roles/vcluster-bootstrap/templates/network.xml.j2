@@ -1,0 +1,5 @@
+<network ipv6='yes' trustGuestRxFilters='no'>
+  <name>vcluster-{{ vcluster_tag }}</name>
+  <bridge name="br0" stp="on" delay="5" macTableManager="libvirt"/>
+  <mtu size="9000"/>
+</network>

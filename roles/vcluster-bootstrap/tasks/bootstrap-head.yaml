@@ -1,0 +1,16 @@
+- name: List present virtual domains
+  virt:
+    command: list_vms
+  register:
+    vdomains
+
+- name: Undefine present head domain
+  virt:
+    command: undefine
+    name: "{{ vcluster_head_name }}"
+  when: 'vcluster_head_name in vdomains.list_vms'
+
+- name: Define head node
+  virt:
+    command: define
+    xml: "{{ lookup('template', '../templates/head.xml.j2') }}"

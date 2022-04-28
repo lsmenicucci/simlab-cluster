@@ -1,0 +1,19 @@
+# - name: List present virtual networks
+#   virt_net:
+#     command: list_nets
+#   register:
+#     vnetworks
+
+# - name: Undefine present network
+#   virt_net:
+#     command: undefine
+#     name: "{{ network_name }}"
+#   vars:
+#     network_name: "vcluster-{{ vcluster_tag }}"
+#   when: 'network_name in vnetworks.list_nets'
+
+- name: Define virtual network
+  virt_net:
+    state: active
+    name: "vcluster-{{ vcluster_tag }}"
+    xml: "{{ lookup('template', '../templates/network.xml.j2') }}"

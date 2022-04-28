@@ -1,0 +1,11 @@
+---
+- hosts: cluster-emu
+  become: true
+  become_user: root
+  vars:
+    vcluster_tag: test
+
+  tasks:
+    - name: Bootstrap a virtual cluster
+      import_role:
+        name: vcluster-bootstrap

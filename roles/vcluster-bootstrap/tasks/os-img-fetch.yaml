@@ -1,0 +1,4 @@
+- name: Download os file
+  get_url:
+    dest: "{{vcluster_head_os_img }}"
+    url: "{{ vcluster_head_os_img_url }}"

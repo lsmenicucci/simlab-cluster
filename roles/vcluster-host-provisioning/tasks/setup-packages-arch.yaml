@@ -1,0 +1,38 @@
+---
+- name: Update package cache
+  pacman:
+    update_cache: true
+    
+- name: Install qemu
+  pacman: 
+    name: qemu-headless
+    state: present
+
+- name: Install libvirt
+  pacman:
+    name: libvirt
+    state: present
+
+- name: Install python
+  pacman: 
+    name: python
+    state: present
+
+- name: Install rsync
+  pacman: 
+    name: rsync
+    state: present
+
+# ansible libirt requirement
+- name: Instal libvirt python package
+  pip:
+    name: libvirt-python
+
+# ansible libvirt_net requirement
+- name: Install lxml python package
+  pip:
+    name: lxml
+
+
+
+

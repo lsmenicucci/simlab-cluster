@@ -1,0 +1,16 @@
+- name: Fetch os image
+  import_tasks: "make-dir-tree.yaml"
+
+- name: Fetch os image
+  import_tasks: "os-img-fetch.yaml"
+
+- name: Define virtual network
+  import_tasks: "bootstrap-network.yaml"
+
+- name: Define storage pool
+  import_tasks: "bootstrap-storage.yaml"
+
+- name: Define virtual machine
+  import_tasks: "bootstrap-head.yaml"
+
+   

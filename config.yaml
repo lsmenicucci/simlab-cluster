@@ -1,0 +1,2 @@
+head_os_img_url: "https://download.rockylinux.org/pub/rocky/8/isos/x86_64/Rocky-8.5-x86_64-boot.iso"
+head_os_img_dest: "/root/Downloads/Rocky-8.5-x86_64-boot.iso"
