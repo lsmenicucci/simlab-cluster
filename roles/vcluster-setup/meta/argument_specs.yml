@@ -1,0 +1,57 @@
+---
+argument_specs:
+  # roles/vcluster-setup/tasks/main.yml entry point
+  main:
+    short_description: The main entry point for the myapp role.
+    options:
+      vcluster_prefix:
+        type: "str"
+        required: true
+        description: "a prefix to be used in the virtual machines"
+      
+      vcluster_base_dir:
+        type: "str"
+        required: true
+        description: "base directory for storing cluster related files and images"
+
+      vcluster_controller_img:
+        type: "str"
+        required: true
+        description: "the controller's os image used"
+
+      vcluster_controller_cpus:
+        type: "int"
+        required: true
+        description: "controller's number of virtual cpus"
+      
+      vcluster_controller_memory:
+        type: "int"
+        default: 4
+        description: "controller's virtual memory in GiB (default: 4GiB)"
+      
+      vcluster_controller_disk_size:
+        type: "int"
+        default: 10
+        description: "controller's disk size in GiB (default: 10GiB)"
+      
+      vcluster_slave_count:
+        type: "int"
+        default: 1
+        description: "number of slave nodes (default: 1)"
+
+      vcluster_slave_cpus:
+        type: "int"
+        required: true
+        description: "slave's number of virtual cpus"
+      
+      vcluster_slave_memory:
+        type: "int"
+        default: 2
+        description: "slave's virtual memory in GiB (default: 2GiB)"
+      
+      vcluster_slave_disk_size:
+        type: "int"
+        default: 1
+        description: "slave's disk size in GiB (default: 1GiB)"
+
+

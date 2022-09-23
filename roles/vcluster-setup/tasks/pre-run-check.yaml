@@ -1,0 +1,23 @@
+# Wtf
+- name: Check cluster variables
+  assert:
+    that:
+      - vcluster_prefix != ""
+      - vcluster_base_dir != ""
+
+- name: Check controllers parameters
+  assert:
+    that:
+      - vcluster_controller_img != ""
+      - vcluster_controller_cpus > 0
+      - vcluster_controller_memory > 0
+      - vcluster_controller_disk_size > 0
+
+
+- name: Check slaves parameters
+  assert:
+    that:
+      - vcluster_slave_count > 0
+      - vcluster_slave_cpus > 0
+      - vcluster_slave_memory > 0
+      - vcluster_slave_disk_size > 0

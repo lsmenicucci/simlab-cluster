@@ -1,0 +1,29 @@
+# Define storage pool
+- name: Create images folder
+  file:
+    path: '{{ (vcluster_base_dir, "images") | path_join }}'
+    recurse: true
+    state: directory
+
+- name: Define storage pool
+  virt_pool:
+    name: '{{ vcluster_prefix }}'
+    state: present
+    xml: "{{ lookup('template', '../templates/storage-pool.xml.j2') }}"
+
+# Create controller volume
+- name: Create controller volume
+  include_tasks: atoms/create-volume.yaml
+  vars:
+    _vcluster_vol_temp_file: "{{ vcluster_base_dir }}/volume-controller.xml"
+    _vcluster_vol_name: controller
+    _vcluster_vol_capacity: vcluster_controller_disk_size
+
+# Create slave volumes
+- name: Create slave volumes
+  include_tasks: atoms/create-volume.yaml
+  vars:
+    _vcluster_vol_temp_file: "{{ vcluster_base_dir }}/volume-slave-{{ item }}.xml"
+    _vcluster_vol_name: "slave_{{ item }}"
+    _vcluster_vol_capacity: "{{ vcluster_slave_disk_size }}"
+  loop: "{{ range(vcluster_slave_count) | list }}"

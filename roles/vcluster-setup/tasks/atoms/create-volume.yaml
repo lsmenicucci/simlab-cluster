@@ -1,0 +1,18 @@
+# Create controller volume
+- block:
+    - name: "Check if volume {{ _vcluster_vol_name }} alredy exists"
+      shell:
+        virsh vol-list --pool={{ vcluster_prefix }} | grep "{{ _vcluster_vol_name }}" | wc -l
+      register:
+        vol_list_result
+
+    - name: "Create volume {{ _vcluster_vol_name }}"
+      block:
+        - name: Create XML file
+          template:
+            src: "storage-volume.xml.j2"
+            dest: "{{ _vcluster_vol_temp_file }}"
+
+        - name: Create volume
+          shell: "virsh vol-create --pool={{ vcluster_prefix }} {{ _vcluster_vol_temp_file }}" 
+      when: vol_list_result.stdout == "0" 

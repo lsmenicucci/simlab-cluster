@@ -6,6 +6,28 @@
     vcluster_tag: test
 
   tasks:
+    # - name: Install requirements for vcluster
+    #   import_role:
+    #     name: vcluster-requirements
+    #   vars:
+    #     os_family: arch
+        
     - name: Bootstrap a virtual cluster
       import_role:
-        name: vcluster-bootstrap
+        name: vcluster-setup
+      vars:
+        # Cluster config
+        vcluster_prefix: test
+        vcluster_base_dir: "/home/lsmeni/vcluster"
+
+        # Controller config
+        vcluster_controller_img: "Rocky-8.6-x86_64-dvd1.iso"
+        vcluster_controller_memory: 4
+        vcluster_controller_cpus: 4
+        vcluster_controller_disk_size: 10
+
+        # Slave config
+        vcluster_slave_count: 1
+        vcluster_slave_memory: 2
+        vcluster_slave_cpus: 1
+        vcluster_slave_disk_size: 1

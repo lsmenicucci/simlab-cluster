@@ -23,7 +23,12 @@
     name: rsync
     state: present
 
-# ansible libirt requirement
+- name: Install dnsmasq
+  pacman:
+    name: dnsmasq
+    state: present
+
+# ansible libvirt requirement
 - name: Instal libvirt python package
   pip:
     name: libvirt-python

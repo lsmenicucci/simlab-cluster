@@ -1,0 +1,6 @@
+- name: Setup packages for {{ os_family }}
+  include_tasks: "packages-{{ os_family }}.yaml"
+
+- name: Configure system
+  include_tasks: "configure.yaml"
+

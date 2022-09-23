@@ -1,0 +1,23 @@
+# Define networks
+- name: Define external virtual network
+  virt_net:
+    state: present
+    name: "{{ vcluster_prefix }}-external"
+    xml: "{{ lookup('template', '../templates/network-external.xml.j2') }}"
+
+- name: Define internal virtual network
+  virt_net:
+    state: present
+    name: "{{ vcluster_prefix }}-internal"
+    xml: "{{ lookup('template', '../templates/network-internal.xml.j2') }}"
+
+# Activate networks
+- name: Activate external virtual network
+  virt_net: 
+    state: active
+    name: "{{ vcluster_prefix }}-external"
+
+- name: Activate internal virtual network
+  virt_net: 
+    state: active
+    name: "{{ vcluster_prefix }}-internal"

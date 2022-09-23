@@ -1,0 +1,14 @@
+- name: Check role's variables
+  import_tasks: pre-run-check.yaml
+
+- name: Setup virtual network
+  import_tasks: setup-networks.yaml
+
+- name: Setup storage
+  import_tasks: setup-storage.yaml
+
+- name: Setup domains
+  import_tasks: setup-domains.yaml
+
+- name: Install controller
+  import_tasks: install-controller.yaml

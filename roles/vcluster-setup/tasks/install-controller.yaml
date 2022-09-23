@@ -1,0 +1,5 @@
+- name: Copy os image file
+  copy:
+    src: "./{{ vcluster_controller_img }}"
+    dest: "{{ (vcluster_base_dir, vcluster_controller_img) | path_join }}" 
+    mode: '0644'

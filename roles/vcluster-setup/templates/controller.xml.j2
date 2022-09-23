@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<domain type="qemu">
+  <name>{{ vcluster_prefix }}-controller</name>
+  <memory unit="GiB">{{ vcluster_controller_memory }}</memory>
+  <vcpu>{{ vcluster_controller_cpus }}</vcpu>
+  <os>
+    <type arch="x86_64">hvm</type>
+    <boot dev="hd"/>
+  </os>
+  <devices>
+    <disk type="file" device="cdrom">
+      <source file="{{ (vcluster_base_dir, vcluster_controller_img) | path_join }}"/>
+      <target dev="hdc"/>
+      <readonly/>
+    </disk>
+    <disk type="volume" device="disk">
+      <driver name='qemu' type='qcow2'/>
+      <source pool='{{ vcluster_prefix }}' volume='controller' mode='host' />
+      <target dev='vda' bus='virtio'/>
+    </disk>
+    <interface type="network">
+      <source network="{{ vcluster_prefix }}-external"/>
+      <model type="virtio"/>
+    </interface>
+    <interface type="network">
+      <source network="{{ vcluster_prefix }}-internal"/>
+      <model type="virtio"/>
+    </interface>
+    <graphics type="vnc" port="-1"/>
+  </devices>
+</domain>
