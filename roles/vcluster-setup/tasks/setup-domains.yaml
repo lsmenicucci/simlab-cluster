@@ -1,4 +1,0 @@
-- name: Setup controller
-  virt:
-    command: define
-    xml: "{{ lookup('template', '../templates/controller.xml.j2') }}"
