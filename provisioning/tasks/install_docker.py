@@ -7,10 +7,26 @@ operations.dnf.packages(
     packages=["epel-release"],
     present=True)
 
-operations.dnf.packages(
-    name="Install container management packages",
-    packages=["docker"],
+operations.dnf.repo(
+    name="Add docker-ce repo",
+    src="https://download.docker.com/linux/centos/docker-ce.repo",
     present=True)
+
+operations.dnf.packages(
+    name="Remove podman related packages",
+    packages=["podman", "containers-common"],
+    present=False)
+
+operations.dnf.packages(
+    name="Install docker",
+    packages=["docker-ce", "docker-ce-cli", "containerd.io", "docker-compose-plugin"],
+    present=True)
+
+operations.systemd.service(
+    name="Enable and start docker service",
+    service="docker",
+    enabled=True,
+    running=True)
 
 # def_filename = "sample-rocky.def"
 

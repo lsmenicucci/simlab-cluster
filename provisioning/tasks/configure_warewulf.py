@@ -21,15 +21,9 @@ if (selinux != "Disabled"):
 
 
 # Configure warewulf
-systemd.service(
-    name="Enable warewulf service",
-    service="warewulfd",
-    enabled=True,
-    running=True)
 
 config_filepath = Path("/usr/local/etc/warewulf").joinpath("warewulf.conf")
 #config_filepath = Path("/etc/warewulf").joinpath("warewulf.conf")
-
 
 # Edit network configuration
 
@@ -40,32 +34,35 @@ def replace_wwconfig(actual, target):
         line=actual,
         replace=target)
 
-replace_wwconfig(r"^ipaddr:*.",         "ipaddr: 10.0.1.1")
-replace_wwconfig(r"^network:*.",        "network: 10.0.1.0")
-replace_wwconfig(r"^  range start:*.",  "  range start: 10.0.1.2")
-replace_wwconfig(r"^  range end:*.",    "  range end: 10.0.1.100")
 
-# Ensure kernel headers
-dnf.packages(
-    name="Ensure kernel devel files",
-    packages=["kernel-devel","kernel-headers"],
-    present=True
-)
+def setup_wwnet(subnet: str):
+    assert len(subnet.split(".")) == 4, "Expected a subnet of the form xxx.xxx.xxx.xxx"
+    prefix = ".".join(subnet.split(".")[:3])
+
+    replace_wwconfig(r"^ipaddr:*.",         f"ipaddr: {prefix}.1")
+    replace_wwconfig(r"^network:*.",        f"network: {prefix}.0")
+    replace_wwconfig(r"^  range start:*.",  f"  range start: {prefix}.2")
+    replace_wwconfig(r"^  range end:*.",    f"  range end: {prefix}.100")
+
+
+setup_wwnet("10.0.2.0")
 
 server.shell(
     name="Generate possibly configuration files",
     commands=["wwctl configure --all"])
 
-# server.shell(
-#     name="Pull centos linux VNFS container",
-#     commands=["wwctl container import docker://warewulf/centos-7 centos-7 --setdefault"])
 
-server.shell(
-    name="Build VNFS for container centos-7",
-    commands=["wwctl container build centos-7"])
+# Add firewall rules
+for service_name in ["warewulf", "tftp", "nfs"]:
+    server.shell(
+        name=f"Add service '{service_name}' to firewall",
+        commands=[f"firewall-cmd --permanent --add-service {service_name}"])
 
-host_kernel = host.get_fact(KernelVersion)
+server.shell(name="Restart firewall", commands=["firewall-cmd --reload"])
 
-server.shell(
-    name="Import host kernel",
-    commands=[f"wwctl kernel import {host_kernel}"])
+# Enable & start system service
+systemd.service(
+    name="Enable and start warewulf service",
+    service="warewulfd",
+    enabled=True,
+    running=True)

@@ -1,0 +1,18 @@
+  File "/home/lsmeni/.local/lib/python3.10/site-packages/pyinfra_cli/main.py", line 224, in cli
+    _main(*args, **kwargs)
+  File "/home/lsmeni/.local/lib/python3.10/site-packages/pyinfra_cli/main.py", line 355, in _main
+    state, config = _handle_commands(state, config, command, original_operations, operations, quiet)
+  File "/home/lsmeni/.local/lib/python3.10/site-packages/pyinfra_cli/main.py", line 612, in _handle_commands
+    state, config, operations = _run_deploy_operations(state, config, operations, quiet)
+  File "/home/lsmeni/.local/lib/python3.10/site-packages/pyinfra_cli/main.py", line 669, in _run_deploy_operations
+    load_deploy_file(state, filename)
+  File "/home/lsmeni/.local/lib/python3.10/site-packages/pyinfra_cli/util.py", line 247, in load_deploy_file
+    raise result
+  File "/home/lsmeni/.local/lib/python3.10/site-packages/pyinfra_cli/util.py", line 227, in load_file
+    exec_file(filename)
+  File "/home/lsmeni/.local/lib/python3.10/site-packages/pyinfra_cli/util.py", line 50, in exec_file
+    code = compile(code, filename, "exec")
+  File "tasks/setup_slurm.py", line 9
+    name="Install dnf plugins, required for powertools enabling"
+         ^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
