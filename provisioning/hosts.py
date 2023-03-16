@@ -1,3 +1,3 @@
 hosts = [
-    ("10.0.1.2", { "ssh_user": "root" })
+    ("chica.fisica.ufmg.br", { "ssh_user": "root" })
 ]

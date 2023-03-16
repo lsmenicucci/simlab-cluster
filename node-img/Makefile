@@ -1,5 +1,5 @@
-REG_URL=localhost:5000
-IMG_TAG=$(REG_URL)/simlab
+REG_URL=chica.fisica.ufmg.br:5000
+IMG_TAG?=$(REG_URL)/simlab
 
 containers/%.sif: defs/%.def
 	mkdir -p ./containers

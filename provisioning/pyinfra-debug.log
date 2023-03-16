@@ -1,0 +1,23 @@
+  File "/home/lsmeni/.local/lib/python3.10/site-packages/pyinfra_cli/main.py", line 224, in cli
+    _main(*args, **kwargs)
+  File "/home/lsmeni/.local/lib/python3.10/site-packages/pyinfra_cli/main.py", line 355, in _main
+    state, config = _handle_commands(state, config, command, original_operations, operations, quiet)
+  File "/home/lsmeni/.local/lib/python3.10/site-packages/pyinfra_cli/main.py", line 612, in _handle_commands
+    state, config, operations = _run_deploy_operations(state, config, operations, quiet)
+  File "/home/lsmeni/.local/lib/python3.10/site-packages/pyinfra_cli/main.py", line 669, in _run_deploy_operations
+    load_deploy_file(state, filename)
+  File "/home/lsmeni/.local/lib/python3.10/site-packages/pyinfra_cli/util.py", line 242, in load_deploy_file
+    greenlet.get()
+  File "src/gevent/greenlet.py", line 805, in gevent._gevent_cgreenlet.Greenlet.get
+  File "src/gevent/greenlet.py", line 373, in gevent._gevent_cgreenlet.Greenlet._raise_exception
+  File "/home/lsmeni/.local/lib/python3.10/site-packages/gevent/_compat.py", line 66, in reraise
+    raise value.with_traceback(tb)
+  File "src/gevent/greenlet.py", line 908, in gevent._gevent_cgreenlet.Greenlet.run
+  File "/home/lsmeni/.local/lib/python3.10/site-packages/pyinfra_cli/util.py", line 226, in load_file
+    exec_file(filename)
+  File "/home/lsmeni/.local/lib/python3.10/site-packages/pyinfra_cli/util.py", line 50, in exec_file
+    code = compile(code, filename, "exec")
+  File "tasks/setup_slurm.py", line 84
+    munge_files =  Path(f).is_relative_to("/etc/munge") for f in slurm_files ]
+                                                                             ^
+SyntaxError: unmatched ']'

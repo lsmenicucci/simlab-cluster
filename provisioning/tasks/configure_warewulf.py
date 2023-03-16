@@ -45,7 +45,7 @@ def setup_wwnet(subnet: str):
     replace_wwconfig(r"^  range end:*.",    f"  range end: {prefix}.100")
 
 
-setup_wwnet("10.0.2.0")
+setup_wwnet("10.1.1.1")
 
 server.shell(
     name="Generate possibly configuration files",

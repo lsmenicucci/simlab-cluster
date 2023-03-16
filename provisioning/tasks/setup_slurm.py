@@ -9,7 +9,7 @@ from pathlib import Path
 munge_key_path = "/etc/munge/munge.key"
 slurm_files = [
     "/etc/slurm/slurm.conf",
-    "/etc/slurm/slurmbd.conf",
+    "/etc/slurm/slurmdbd.conf",
     "/etc/munge/munge.key"
 ]
 
@@ -81,5 +81,5 @@ overlays = host.get_fact(WWOverlays)
 if ("slurm" not in overlays):
     create_ww_overlay("slurm", slurm_files)
 
-munge_files =  Path(f).is_relative_to("/etc/munge") for f in slurm_files ]
+munge_files =[ Path(f).is_relative_to("/etc/munge") for f in slurm_files ]
 # may chown if necessary here
