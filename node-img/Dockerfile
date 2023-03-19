@@ -18,7 +18,9 @@ gpgcheck = 1
 gpgkey = https://repos.influxdata.com/influxdata-archive_compat.key
 EOF
 
-RUN yum install -y telegraf
+RUN dnf install -y telegraf
+COPY telegraf.service /etc/systemd/system/
+RUN systemctl enable telegraf
 
 # Fix munge logging mode
 RUN sed -iE "s|^ExecStart(.*)$|\0 --syslog|"  /usr/lib/systemd/system/munge.service
@@ -28,7 +30,6 @@ RUN systemctl enable munge slurmd
 
 # Disable network manager
 RUN systemctl disable NetworkManager
-RUN systemctl enable telegraf
 
 # Set root password
 RUN echo "root:root" | chpasswd
