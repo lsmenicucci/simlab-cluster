@@ -18,9 +18,14 @@ gpgcheck = 1
 gpgkey = https://repos.influxdata.com/influxdata-archive_compat.key
 EOF
 
+# Install telegraf
 RUN dnf install -y telegraf
-COPY telegraf.service /etc/systemd/system/
+COPY telegraf/telegraf.service /etc/systemd/system/
 RUN systemctl enable telegraf
+
+# Install rsyslog (syslog exporter to telegraf)
+RUN dnf install -y rsyslog
+RUN systemctl enable rsyslog
 
 # Fix munge logging mode
 RUN sed -iE "s|^ExecStart(.*)$|\0 --syslog|"  /usr/lib/systemd/system/munge.service
@@ -30,6 +35,7 @@ RUN systemctl enable munge slurmd
 
 # Disable network manager
 RUN systemctl disable NetworkManager
+
 
 # Set root password
 RUN echo "root:root" | chpasswd
