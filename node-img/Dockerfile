@@ -20,7 +20,7 @@ EOF
 
 # Install telegraf
 RUN dnf install -y telegraf
-COPY telegraf/telegraf.service /etc/systemd/system/
+COPY telegraf.service /etc/systemd/system/
 RUN systemctl enable telegraf
 
 # Install rsyslog (syslog exporter to telegraf)
@@ -36,7 +36,7 @@ RUN systemctl enable munge slurmd
 # Disable network manager
 RUN systemctl disable NetworkManager
 
-
 # Set root password
 RUN echo "root:root" | chpasswd
 
+RUN dnf install -y vim
