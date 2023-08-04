@@ -1,0 +1,7 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%runscript
+    echo "Hello World, from inside the container!"
+
+
